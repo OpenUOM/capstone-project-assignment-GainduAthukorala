@@ -21,35 +21,33 @@ export class StudentTableComponent implements OnInit {
     this.getStudentData();
   }
 
-  addNewStudent(){
-    this.router.navigate(['addStudent'])
+  addNewStudent() {
+    this.router.navigate(['addStudent']);
   }
-
-  editStudent(id){
+  
+  editStudent(id) {
     const navigationExtras: NavigationExtras = {
-      state: {
-        id : id
-      }
+      state: { id: id }
     };
-    this.router.navigate(['editStudent'], navigationExtras )
+    this.router.navigate(['editStudent'], navigationExtras);
   }
-
-  getStudentData(){
-    this.service.getStudentData().subscribe((response)=>{
+  
+  getStudentData() {
+    this.selected = 'Students';
+    this.service.getStudentData().subscribe((response) => {
       this.studentData = Object.keys(response).map((key) => [response[key]]);
-    },(error)=>{
-      console.log('ERROR - ', error)
-    })
+    }, (error) => {
+      console.log('ERROR - ', error);
+    });
   }
-
-  deleteStudent(itemid){
-    const student = {
-      id: itemid
-    }
-    this.service.deleteStudent(student).subscribe((response)=>{
-      this.getStudentData()
-    })
+  
+  deleteStudent(itemid) {
+    const test = { id: itemid };
+    this.service.deleteStudent(test).subscribe((response) => {
+      this.getStudentData();
+    });
   }
+  
 
   search(value) {
     let foundItems = [];
